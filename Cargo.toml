@@ -8,7 +8,7 @@ repository = "https://github.com/kulkalkul/bevy_mod_billboard.git"
 homepage = "https://github.com/kulkalkul/bevy_mod_billboard.git"
 documentation = "https://docs.rs/bevy_mod_billboard"
 readme = "README.md"
-keywords = [ "bevy", "gamedev", "graphics", "billboard", "3dtext" ]
+keywords = [ "bevy", "gamedev", "graphics", "billboard" ]
 categories = [ "rendering", "game-development" ]
 authors = [ "Bora Ülker" ]
 exclude = [ "images", "assets" ]
@@ -20,7 +20,7 @@ smallvec = "1.11.0"
 bitflags = "2.3"
 
 [dependencies.bevy]
-version = "0.16"
+version = "0.17.3"
 default-features = false
 features = [
     "bevy_core_pipeline",
@@ -34,4 +34,4 @@ features = [
 ]
 
 [dev-dependencies]
-bevy = "0.16"
+bevy = "0.17.3"

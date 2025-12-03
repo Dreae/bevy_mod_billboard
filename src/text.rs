@@ -4,14 +4,14 @@ use crate::{BillboardDepth, BillboardLockAxis, BillboardText, BillboardTextNeeds
 use bevy::color::palettes;
 use bevy::platform::collections::{HashMap, HashSet};
 use bevy::prelude::*;
-use bevy::render::mesh::{Indices, PrimitiveTopology};
-use bevy::render::render_asset::RenderAssetUsages;
+use bevy::mesh::{Indices, PrimitiveTopology};
+use bevy::asset::RenderAssetUsages;
 use bevy::render::sync_world::RenderEntity;
 use bevy::render::Extract;
 use bevy::sprite::Anchor;
 use bevy::text::{
     ComputedTextBlock, CosmicFontSystem, FontAtlasSets, PositionedGlyph, SwashCache, TextBounds,
-    TextLayoutInfo, TextPipeline, TextReader, YAxisOrientation,
+    TextLayoutInfo, TextPipeline, TextReader
 };
 use smallvec::SmallVec;
 
@@ -147,7 +147,6 @@ pub(crate) fn update_billboard_text_layout(
                 &mut font_atlas_set_storage,
                 &mut texture_atlases,
                 &mut images,
-                YAxisOrientation::BottomToTop,
                 computed.as_mut(),
                 &mut font_system,
                 &mut swash_cache,
@@ -180,15 +179,15 @@ pub(crate) fn update_billboard_text_layout(
                 // TODO: Maybe with clever caching, could be possible to get rid of or_insert_with,
                 // TODO: though I don't know how much of a gain it would be. Just keeping this as a note.
                 let entry = textures
-                    .entry(glyph.atlas_info.texture.clone_weak())
+                    .entry(glyph.atlas_info.texture.clone())
                     .or_insert_with(|| {
                         (
                             Vec::with_capacity(length),
                             (
                                 texture_atlases
-                                    .get(&glyph.atlas_info.texture_atlas)
+                                    .get(glyph.atlas_info.texture_atlas)
                                     .expect("Atlas should exist"),
-                                glyph.atlas_info.texture.clone_weak(),
+                                glyph.atlas_info.texture.clone(),
                             ),
                         )
                     });
@@ -268,7 +267,7 @@ pub(crate) fn update_billboard_text_layout(
 
                 handles.push(BillboardTextHandleGroup {
                     mesh: meshes.add(mesh),
-                    image: texture,
+                    image: images.get_strong_handle(texture).unwrap(),
                 });
             }
         }

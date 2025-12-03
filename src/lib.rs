@@ -11,7 +11,7 @@ use crate::text::{BillboardTextBounds, BillboardTextHandles};
 use bevy::asset::weak_handle;
 use bevy::prelude::*;
 use bevy::render::extract_component::ExtractComponent;
-use bevy::render::view::{add_visibility_class, VisibilityClass};
+use bevy::camera::visibility::{add_visibility_class, VisibilityClass};
 use bevy::sprite::Anchor;
 use bevy::text::{TextRoot, TextSpanAccess};
 

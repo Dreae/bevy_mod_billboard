@@ -9,7 +9,7 @@ use crate::text::{
 use crate::texture::extract_billboard_texture;
 use crate::{prelude::*, Billboard, BILLBOARD_SHADER_HANDLE};
 use bevy::prelude::*;
-use bevy::render::camera::CameraUpdateSystem;
+use bevy::camera::CameraUpdateSystems;
 use bevy::render::extract_component::{ExtractComponentPlugin, UniformComponentPlugin};
 use bevy::render::render_phase::AddRenderCommand;
 use bevy::render::render_resource::SpecializedMeshPipelines;
@@ -44,7 +44,7 @@ impl Plugin for BillboardPlugin {
                     update_billboard_text_layout,
                 )
                     .chain()
-                    .ambiguous_with(CameraUpdateSystem),
+                    .ambiguous_with(CameraUpdateSystems),
             );
     }
 
